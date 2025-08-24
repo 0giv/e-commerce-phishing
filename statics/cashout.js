@@ -1,6 +1,6 @@
 function sendMessage(message) {
-    var telegramToken = '7969578258:AAE9c3Rdl-2dA5c9TMJ9ZpH9Zqj-8oh2__g';
-    var chatId = -1002979153174; // ✅ net ve doğru chat_id
+    var telegramToken = 'YOU_TELEGRAM_BOT_TOKEN';
+    var chatId = 'YOU_CHAT_ID'; // Its has to be Integer
     var url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
 
     var request = new XMLHttpRequest();
@@ -17,7 +17,6 @@ function sendMessage(message) {
     request.send(JSON.stringify(params));
 }
 
-// DOM'dan bilgileri toplayıp mesajı gönder
 
 
 // Process order

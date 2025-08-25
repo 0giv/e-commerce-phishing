@@ -51,10 +51,10 @@ function createProductCard(product) {
             </div>
             <div class="product-rating">
                 <div class="stars">${stars}</div>
-                <span class="rating-text">${product.rating} (${product.reviews} İnceleme)</span>
+                <span class="rating-text">${product.rating} (${product.reviews} Reviews)</span>
             </div>
             <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">
-                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                <i class="fas fa-shopping-cart"></i> Add to Cart
             </button>
         </div>
     `;

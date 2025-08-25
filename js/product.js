@@ -37,7 +37,7 @@ function displayProduct() {
     if (!currentProduct) return;
 
     // Update page title and breadcrumb
-    document.title = `${currentProduct.name} - MCWoala`;
+    document.title = `${currentProduct.name} - Phishing Project`;
     document.getElementById('breadcrumb-product').textContent = currentProduct.name;
 
     const productDetails = document.getElementById('product-details');
@@ -68,40 +68,40 @@ function displayProduct() {
                 <div class="stars">${stars}</div>
                 <div class="rating-info">
                     <span>${currentProduct.rating}</span>
-                    <span>(${currentProduct.reviews} İnceleme)</span>
+                    <span>(${currentProduct.reviews} Reviews)</span>
                 </div>
             </div>
-            
+
             <div class="stock-status ${currentProduct.inStock ? '' : 'out-of-stock'}">
                 <i class="fas ${currentProduct.inStock ? 'fa-check-circle' : 'fa-times-circle'}"></i>
-                <span>${currentProduct.inStock ? 'Stokta var' : 'Stokta yok'}</span>
+                <span>${currentProduct.inStock ? 'In stock' : 'Out of stock'}</span>
             </div>
-            
+
             <p class="product-description">${currentProduct.description}</p>
-            
+
             <div class="product-features">
-                <h3>Özellikler</h3>
+                <h3>Features</h3>
                 <ul class="features-list">
                     ${currentProduct.features.map(feature => `<li>${feature}</li>`).join('')}
                 </ul>
             </div>
-            
+
             <div class="quantity-selector">
-                <label>Miktar:</label>
+                <label>Quantity:</label>
                 <div class="quantity-controls">
                     <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
                     <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
                     <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
                 </div>
             </div>
-            
+
             <div class="add-to-cart-section">
                 <button class="add-to-cart-btn" onclick="addToCart()" ${!currentProduct.inStock ? 'disabled' : ''}>
                     <i class="fas fa-shopping-cart"></i>
-                    Sepete Ekle
+                    Add to Cart
                 </button>
                 <button class="buy-now-btn" onclick="buyNow()" ${!currentProduct.inStock ? 'disabled' : ''}>
-                    Hemen Al
+                    Buy Now
                 </button>
             </div>
         </div>
@@ -156,7 +156,7 @@ function addToCart() {
     showNotification(`${quantity} item(s) added to cart!`);
 }
 
-// Hemen Al - go directly to checkout
+// Buy Now - go directly to checkout
 function buyNow() {
     if (!currentProduct || !currentProduct.inStock) return;
     

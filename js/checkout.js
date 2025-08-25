@@ -37,7 +37,7 @@ function displayOrderSummary() {
             <img src="${item.image}" alt="${item.name}" class="item-image">
             <div class="item-details">
                 <div class="item-name">${item.name}</div>
-                <div class="item-quantity">Miktar: ${item.quantity}</div>
+                <div class="item-quantity">Quantity: ${item.quantity}</div>
             </div>
             <div class="item-price">${itemTotal.toFixed(2)}TL</div>
         `;
@@ -64,11 +64,11 @@ function setupFormValidation() {
         input.addEventListener('input', clearFieldError);
     });
     
-    // Kart Numarası formatting
+    // Card number formatting
     const cardNumber = document.getElementById('cardNumber');
     cardNumber.addEventListener('input', formatCardNumber);
-    
-    // Son Kullanma Tarihi formatting
+
+    // Expiration date formatting
     const expiryDate = document.getElementById('expiryDate');
     expiryDate.addEventListener('input', formatExpiryDate);
     
@@ -113,16 +113,16 @@ function validateField(event) {
     if (field.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-            showFieldError(field, 'Please enter a valid Kullanıcı Emaili');
+            showFieldError(field, 'Please enter a valid email address');
             return false;
         }
     }
     
-    // Kart Numarası validation
+    // Card number validation
     if (field.id === 'cardNumber') {
         const cardRegex = /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/;
         if (!cardRegex.test(value)) {
-            showFieldError(field, 'Please enter a valid Kart Numarası');
+            showFieldError(field, 'Please enter a valid card number');
             return false;
         }
     }
@@ -131,7 +131,7 @@ function validateField(event) {
     if (field.id === 'expiryDate') {
         const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
         if (!expiryRegex.test(value)) {
-            showFieldError(field, 'Please enter a valid Son Kullanma Tarihi (MM/YY)');
+            showFieldError(field, 'Please enter a valid expiration date (MM/YY)');
             return false;
         }
         
@@ -183,14 +183,14 @@ function clearFieldError(event) {
     }
 }
 
-// Format Kart Numarası
+    // Format card number
 function formatCardNumber(event) {
     let value = event.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
     const formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
     event.target.value = formattedValue;
 }
 
-// Format Son Kullanma Tarihi
+    // Format expiration date
 function formatExpiryDate(event) {
     let value = event.target.value.replace(/\D/g, '');
     if (value.length >= 2) {
@@ -205,30 +205,6 @@ function formatCVV(event) {
 }
 
 
-
-// Show order success
-function showOrderSuccess() {
-    const main = document.querySelector('.checkout-main');
-    main.innerHTML = `
-        <div class="container">
-            <div class="success-container" style="text-align: center; padding: 4rem 2rem;">
-                <div style="background: #fc0505ff; color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 2rem;">
-                    <i class="fas fa-check"></i>
-                </div>
-                <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #ff0404ff;">Hata!</h1>
-                <p style="font-size: 1.2rem; color: #64748b; margin-bottom: 2rem;">Sipariş alınamadı. Banka ödemeyi kabul etmiyor.</p>
-                <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
-                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Sipariş Detayları</h3>
-                    <p style="color: #64748b; margin-bottom: 0.5rem;">Sipariş Numarası: #${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
-                    <p style="color: #64748b;">Kısa süre içinde bir e-posta alacaksınız.</p>
-                </div>
-                <button onclick="window.location.href='index.html'" style="background: #2563eb; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
-                    Alışverişe Devam et
-                </button>
-            </div>
-        </div>
-    `;
-}
 
 // Update cart count
 function updateCartCount() {
@@ -271,4 +247,25 @@ function showNotification(message, type = 'success') {
             document.body.removeChild(notification);
         }, 300);
     }, 3000);
+}function showOrderSuccess() {
+    const main = document.querySelector('.checkout-main');
+    main.innerHTML = `
+        <div class="container">
+            <div class="success-container" style="text-align: center; padding: 4rem 2rem;">
+                <div style="background: #fc0505ff; color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 2rem;">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: #ff0404ff;">Error!</h1>
+                <p style="font-size: 1.2rem; color: #64748b; margin-bottom: 2rem;">Order could not be processed. The bank declined the payment.</p>
+                <div style="background: #f8fafc; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Order Details</h3>
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">Order Number: #${Math.random().toString(36).substr(2,9).toUpperCase()}</p>
+                    <p style="color: #64748b;">You will receive an email shortly.</p>
+                </div>
+                <button onclick="window.location.href='index.html'" style="background: #2563eb; color: white; border: none; padding: 1rem 2rem; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    `;
 }
